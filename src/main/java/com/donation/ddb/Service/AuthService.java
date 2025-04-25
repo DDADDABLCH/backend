@@ -66,6 +66,7 @@ public class AuthService {
         return nonce;
     }
 
+    /*
     @Transactional
     //주소 지갑의 진짜 주인인지 확인
     public Boolean verifySignature(WalletAddressVerifyRequestDto requestDto){
@@ -135,5 +136,7 @@ public class AuthService {
             return false;
         }
     }
+    */
+
 
 }

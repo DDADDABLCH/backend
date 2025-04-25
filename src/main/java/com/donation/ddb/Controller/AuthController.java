@@ -31,6 +31,7 @@ public class AuthController {
         return ResponseEntity.ok(walletNonceResponseDto);
     }
 
+    /*
     @PostMapping("/verify-signature")
     public ResponseEntity<WalletAddressVerifyResponseDto> verify(@RequestBody @Valid WalletAddressVerifyRequestDto walletAddressVerifyDto,
                                                                 BindingResult bindingResult) {
@@ -44,5 +45,7 @@ public class AuthController {
             response.setSuccess(false);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
-    }
+    }*/
+
+
 }
