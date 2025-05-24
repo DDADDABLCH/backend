@@ -1,35 +1,44 @@
 package com.donation.ddb.Controller;
 
 
+import com.donation.ddb.Dto.Request.EmailVerificationRequestDto;
 import com.donation.ddb.Dto.Request.WalletAddressVerifyRequestDto;
-import com.donation.ddb.Dto.Request.WalletNonceRequestDTO;
+import com.donation.ddb.Dto.Request.WalletMessageRequestDTO;
 import com.donation.ddb.Dto.Response.WalletAddressVerifyResponseDto;
-import com.donation.ddb.Dto.Response.WalletNonceResponseDto;
+import com.donation.ddb.Dto.Response.WalletMessageResponseDto;
 import com.donation.ddb.Service.AuthService;
+import com.donation.ddb.Service.EmailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/wallet/auth/")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
+    @Autowired
     private final AuthService authService;
 
-    @PostMapping("/request-nonce")
-    public ResponseEntity<WalletNonceResponseDto> requestNonce(@RequestBody WalletNonceRequestDTO walletNonceRequestDTO){
+    @PostMapping("/request-message")
+    public ResponseEntity<WalletMessageResponseDto> requestMessage(@RequestBody WalletMessageRequestDTO walletMessageRequestDTO){
 
-        String nonce=authService.generateNonce(walletNonceRequestDTO.getEmail(),walletNonceRequestDTO.getWalletAddress());
-
-        WalletNonceResponseDto walletNonceResponseDto=new WalletNonceResponseDto();
-        walletNonceResponseDto.setNonce(nonce);
-        return ResponseEntity.ok(walletNonceResponseDto);
+        String message=authService.generateMessage(walletMessageRequestDTO.getEmail(),walletMessageRequestDTO.getWalletAddress());
+        WalletMessageResponseDto walletMessageResponseDto=new WalletMessageResponseDto();
+        walletMessageResponseDto.setMessage(message);
+        return ResponseEntity.ok(walletMessageResponseDto);
     }
+
 
     @PostMapping("/verify-signature")
     public ResponseEntity<WalletAddressVerifyResponseDto> verify(@RequestBody @Valid WalletAddressVerifyRequestDto walletAddressVerifyDto,
@@ -45,4 +54,5 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
+
 }
