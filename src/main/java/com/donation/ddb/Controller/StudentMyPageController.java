@@ -80,7 +80,7 @@ public class StudentMyPageController {
 
     @PutMapping("/update/pwd")
     public ResponseEntity<String> updatePwd(
-            @Valid @RequestPart(value = "updateInfo", required = false) StudentInfoUpdatePwdDTO updateDto,
+            @Valid @RequestPart(value = "updateInfo", required = true) StudentInfoUpdatePwdDTO updateDto,
             @RequestPart(value = "profileImage", required = false) MultipartFile profileImage) {
 
         try {
