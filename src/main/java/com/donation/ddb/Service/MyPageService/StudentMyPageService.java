@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional(readOnly=true)
 public class StudentMyPageService {
 
     private final StudentUserRepository studentUserRepository;
@@ -291,6 +290,7 @@ public class StudentMyPageService {
     /**
      * NFT 이미지 저장
      */
+    @Transactional(readOnly = false)  // ✅ 명시적으로 false 설정
     public String storeNFTImage(Long studentId, MultipartFile image) throws IOException {
         // 학생 존재 확인
         StudentUser student = studentUserRepository.findById(studentId)
