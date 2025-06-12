@@ -2,6 +2,7 @@ package com.donation.ddb.Service.OrgUserService;
 
 
 import com.donation.ddb.Domain.*;
+import com.donation.ddb.Domain.Exception.BusinessNumberAlreadyExistsException;
 import com.donation.ddb.Domain.Exception.DataNotFoundException;
 import com.donation.ddb.Domain.Exception.EmailAlreadyExistsException;
 import com.donation.ddb.Dto.Request.OrgSignUpForm;
@@ -50,6 +51,13 @@ public class OrgUserService {
         user.setOEmail(email);
         user.setOPassword(passwordEncoder.encode(password));
         user.setRole(Role.ROLE_ORGANIZATION);
+        // 사업자등록번호 처리
+        if (businessNumber != null && businessNumber.trim().isEmpty()) {
+            businessNumber = null;
+        }
+        if (businessNumber != null && organizationUserRepository.existsByoBusinessNumber(businessNumber)) {
+            throw new BusinessNumberAlreadyExistsException(businessNumber);
+        }
         user.setOBusinessNumber(businessNumber);
         user.setODescription(description);
 

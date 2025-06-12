@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class CampaignSpendingResponseDto {
     private Long id;
     private String title;
-    private int amount;
+    private BigDecimal amount;
 
     public static CampaignSpendingResponseDto from(CampaignSpending campaignSpending) {
         return CampaignSpendingResponseDto.builder()

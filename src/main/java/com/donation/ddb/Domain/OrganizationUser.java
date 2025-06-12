@@ -42,7 +42,7 @@ public class OrganizationUser extends BaseEntity {
     @Column(unique=true)
     private String oBusinessNumber;
 
-    @Column(length=100)
+    @Column(length=500)
     private String oDescription;
 
     @Enumerated(EnumType.STRING)

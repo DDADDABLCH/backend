@@ -2,6 +2,7 @@ package com.donation.ddb.Controller;
 
 
 import com.donation.ddb.Converter.OrganizationUserConverter;
+import com.donation.ddb.Domain.Exception.BusinessNumberAlreadyExistsException;
 import com.donation.ddb.Domain.Exception.DataNotFoundException;
 import com.donation.ddb.Domain.Exception.EmailAlreadyExistsException;
 import com.donation.ddb.Dto.Request.OrgEmailVerificationRequestDto;
@@ -153,6 +154,9 @@ public class OrgUserController {
         } catch (IllegalArgumentException | IllegalStateException e) {
             log.error("회원가입 처리 중 오류 발생 ", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (BusinessNumberAlreadyExistsException e) {
+            log.error("회원가입 처리 중 오류 발생 ", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (EmailAlreadyExistsException e) {
             log.error("이미 회원 가입 되어있는 경우 오류 발생 : {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT)

@@ -3,6 +3,8 @@ package com.donation.ddb.Domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Builder
 @Setter
@@ -24,5 +26,5 @@ public class CampaignSpending {
     private String csTitle;
 
     @Column(name = "cs_amount", nullable = false)
-    private Integer csAmount;
+    private BigDecimal csAmount;
 }

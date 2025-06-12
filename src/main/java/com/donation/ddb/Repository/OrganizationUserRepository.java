@@ -10,4 +10,5 @@ public interface OrganizationUserRepository extends JpaRepository<OrganizationUs
     Optional<OrganizationUser> findByoEmail(String email);
     //Optional<OrganizationUser> findByoWalletAddress(String address);
     Boolean existsByoEmail(String email);
+    boolean existsByoBusinessNumber(String businessNumber); // 이 메서드 추가
 }

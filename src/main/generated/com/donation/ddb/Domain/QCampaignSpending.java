@@ -24,7 +24,7 @@ public class QCampaignSpending extends EntityPathBase<CampaignSpending> {
 
     public final QCampaign campaign;
 
-    public final NumberPath<Integer> csAmount = createNumber("csAmount", Integer.class);
+    public final NumberPath<java.math.BigDecimal> csAmount = createNumber("csAmount", java.math.BigDecimal.class);
 
     public final NumberPath<Long> csId = createNumber("csId", Long.class);
 

@@ -130,8 +130,8 @@ public class SecurityConfig {
                 "http://192.168.41.159:5173",
                 "http://192.168.41.159:5500",
                 "http://192.168.41.159:8080",
-                "http://localhost:5173"
-
+                "http://localhost:5173",
+                "https://sookchain.vercel.app"
         ));
 
         // 허용할 HTTP 메서드 설정

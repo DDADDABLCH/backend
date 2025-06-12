@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 public class CampaignSpendingRequestDto {
 
     @Getter
@@ -21,6 +23,6 @@ public class CampaignSpendingRequestDto {
         private String title;
 
         @NotNull(message = "금액 입력은 필수입니다.")
-        private Integer amount;
+        private BigDecimal amount;
     }
 }
