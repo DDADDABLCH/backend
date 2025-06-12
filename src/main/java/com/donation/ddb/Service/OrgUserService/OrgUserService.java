@@ -49,13 +49,16 @@ public class OrgUserService {
 
         user.setOEmail(email);
         user.setOPassword(passwordEncoder.encode(password));
-
-
         user.setRole(Role.ROLE_ORGANIZATION);
         user.setOBusinessNumber(businessNumber);
         user.setODescription(description);
-        user.setOProfileImage(profileimage);
 
+        // 기본 이미지 설정 로직 수정
+        if(profileimage == null || profileimage.trim().isEmpty()) {
+            user.setOProfileImage("profiles/default_profile.png"); // 기본 이미지 파일명
+        } else {
+            user.setOProfileImage(profileimage);
+        }
         OrganizationUser s=organizationUserRepository.save(user);
         Long id=user.getOId();
         return id;

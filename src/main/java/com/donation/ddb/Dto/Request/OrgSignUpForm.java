@@ -38,7 +38,14 @@ public class OrgSignUpForm {
 
     private String profileImage;
 
-    @Pattern(regexp = "\\d{3}-\\d{2}-\\d{5}", message = "사업자등록번호는 123-45-67890 형식이어야 합니다.")
+
+
+
+    @Pattern(
+            regexp = "^$|^\\d{3}-\\d{2}-\\d{5}$",
+            message = "사업자등록번호는 123-45-67890 형식이어야 합니다."
+    )
+   // @Pattern(regexp = "\\d{3}-\\d{2}-\\d{5}", message = "사업자등록번호는 123-45-67890 형식이어야 합니다.")
     //@NotBlank(message="사업자 번호를 입력해주세요") -> 선택으로 바꿈
     private String businessNumber;
 

@@ -131,7 +131,7 @@ public class OrgUserController {
                     orgSignUpForm.getConfirmPassword(),
                     orgSignUpForm.getBusinessNumber(),
                     orgSignUpForm.getDescription(),
-                    orgSignUpForm.getProfileImage()
+                   null
             );
 
             log.info("image upload : {}", profileImage);
@@ -142,6 +142,7 @@ public class OrgUserController {
                 orgSignUpForm.setProfileImage(imagePath);
                 orgUserService.updateOrgUser(orgSignUpForm, userId);
             }
+
 
             log.info("회원가입 성공 : 사용자 ID {} ", userId);
 

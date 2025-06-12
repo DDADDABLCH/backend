@@ -67,7 +67,7 @@ public class StudentUserService {
             s.setSNickname("guest"+sid);
         }
 
-        s.setSProfileImage("/profiles/default_profile.png");
+        s.setSProfileImage("profiles/default_profile.png");
         studentUserRepository.save(s);  // 다시 저장 필요
         return sid;
     }

@@ -79,7 +79,7 @@ public class PostController {
         if (userDetails == null) {
             throw new CampaignHandler(ErrorStatus._UNAUTHORIZED);
         } else if (userDetails.isOrganization()) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
         String email = userDetails.getUsername();
 
@@ -102,7 +102,7 @@ public class PostController {
         }
 
         if (userDetails.isOrganization()) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
 
         String email = userDetails.getUsername();
@@ -123,7 +123,7 @@ public class PostController {
         }
 
         if (userDetails.isOrganization()) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
 
         String email = userDetails.getUsername();
@@ -168,7 +168,7 @@ public class PostController {
         }
 
         if (userDetails.isOrganization()) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
 
         String email = userDetails.getUsername();

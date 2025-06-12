@@ -213,7 +213,7 @@ public class CampaignController {
         if (userDetails == null) {
             throw new CampaignHandler(ErrorStatus._UNAUTHORIZED);
         } else if (!userDetails.isOrganization()) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
         String email = userDetails.getUsername();
 
@@ -321,7 +321,7 @@ public class CampaignController {
         }
 
         if (!userDetails.isStudent()) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
 
         String email = userDetails.getUsername();
@@ -351,7 +351,7 @@ public class CampaignController {
         }
 
         if (!userDetails.isStudent()) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
 
         String email = userDetails.getUsername();
@@ -405,7 +405,7 @@ public class CampaignController {
             throw new CampaignHandler(ErrorStatus._UNAUTHORIZED);
         } else if (!userDetails.isOrganization() ||
                 !campaign.getOrganizationUser().getOEmail().equals(userDetails.getUsername())) {
-            throw new CampaignHandler(ErrorStatus._FORBIDDEN);
+            throw new CampaignHandler(ErrorStatus._FORBIDDEN_ORGANIZATION);
         }
 
         // 🔥 기존 상태 저장
