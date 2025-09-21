@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
@@ -62,11 +63,27 @@ public class SecurityConfig {
                 .headers(headers -> headers
                         .frameOptions(frame -> frame.sameOrigin()))
 
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/auth/**","/auth/logout","/api/**","/api/v1/user/sign-up/**" , "/wallet/**","/h2-console/**", "/images/**").permitAll()  // 회원가입, 로그인, 인증 경로는 허용
+//
+//                        .requestMatchers("/api/test/protected").authenticated()
+//                        .anyRequest().authenticated()             // 그 외는 인증 필요
+//                )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**","/auth/logout","/api/**","/api/v1/user/sign-up/**" , "/wallet/**","/h2-console/**", "/images/**").permitAll()  // 회원가입, 로그인, 인증 경로는 허용
-                        .requestMatchers("/api/test/protected").authenticated()
-                        .anyRequest().authenticated()             // 그 외는 인증 필요
+                        // 1) 보호해야 하는 /auth/me를 먼저 명시 (가장 먼저 평가됨)
+                        .requestMatchers("/auth/me").authenticated()
+
+                        // 2) 로그인/회원가입 계열은 하위 경로까지 허용
+                        .requestMatchers("/auth/login/**", "/auth/signup/**", "/auth/logout").permitAll()
+
+                        // 3) 나머지 퍼블릭 경로
+                        .requestMatchers("/h2-console/**", "/images/**", "/wallet/**",
+                                "/api/**", "/api/v1/user/sign-up/**").permitAll()
+
+                        // 4) 그 외는 인증 필요
+                        .anyRequest().authenticated()
                 )
+
 
                 //JWT 인증 필터 등록
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
@@ -83,7 +100,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        //configuration.setAllowedOrigins(Arrays.asList(// 모든 도메인 허용 ✅
+        //configuration.setAllowedOrigins(Arrays.asList(// 모든 도메인 허용
         // 허용할 오리진(출처) 설정
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:3000",     // React 기본 포트
@@ -113,24 +130,44 @@ public class SecurityConfig {
                 "http://10.101.48.199:5500",
                 "http://10.101.48.199:8080" ,
                 "http://10.101.48.199:5173",
-                "http://10.101.32.65:3000",   // ✅ 여기에 추가
-                "http://10.101.32.65:5500",   // ✅ 필요시 추가
-                "http://10.101.32.65:8080" ,   // ✅ 필요시 추가,
+                "http://10.101.48.14:3000",
+                "http://10.101.48.14:5500",
+                "http://10.101.48.14:8080" ,
+                "http://10.101.48.14:5173",
+                "http://10.101.32.65:3000",
+                "http://10.101.32.65:5500",
+                "http://10.101.32.65:8080" ,
                 "http://10.101.32.65:5173",
-                "http://10.101.32.1:3000",   // ✅ 여기에 추가
-                "http://10.101.32.1:5500",   // ✅ 필요시 추가
-                "http://10.101.32.1:8080" ,   // ✅ 필요시 추가,
+                "http://10.101.32.1:3000",
+                "http://10.101.32.1:5500",
+                "http://10.101.32.1:8080",
                 "http://10.101.32.1:5173",
                 "http://10.101.32.88:3000",
                 "http://10.101.32.88:5500",
                 "http://10.101.32.88:8080",
                 "http://10.101.32.88:5173",
                 "http://192.168.1.100:80",
+                "http://192.168.1.100:80",
                  "http://192.168.41.159:3000",
                 "http://192.168.41.159:5173",
                 "http://192.168.41.159:5500",
                 "http://192.168.41.159:8080",
+                "http://10.182.244.173:3000",
+                "http://10.182.244.173:5173",
+                "http://10.182.244.173:5500",
+                "http://10.182.244.173:8080",
+                "http://10.101.48.16:3000",
+                "http://10.101.48.16:5500",
+                "http://10.101.48.16:5173",
+                "http://10.101.48.16:8080",
+                "http://10.101.48.16:5174",
+                "http://10.115.8.173:3000",
+                "http://10.115.8.173:5500",
+                "http://10.115.8.173:5173",
+                "http://10.115.8.173:8080",
+                "http://10.115.8.173:5174",
                 "http://localhost:5173",
+                "http://localhost:5174",
                 "https://sookchain.vercel.app"
         ));
 
@@ -163,6 +200,11 @@ public class SecurityConfig {
     ) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+    @Bean
+    WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers("/images/**");
+    }
+
 
     @Bean
     PasswordEncoder passwordEncoder() {
