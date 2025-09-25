@@ -14,22 +14,6 @@
 //     console.log(`✅ 컨트랙트 배포 완료!`);
 //     console.log(`📍 주소: ${contract.address}`);
 
-//     // 2단계: GitHub Raw URL들 (실제 URL로 교체하세요!)
-//     const imageUrls = {
-//       CHILDREN:
-//         "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_children.png?raw=true",
-//       ELDERLY:
-//         "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_elderly.png?raw=true",
-//       ENVIRONMENT:
-//         "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_environment.png?raw=true",
-//       ANIMAL:
-//         "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_animal.png?raw=true",
-//       MEDICAL:
-//         "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_medical.png?raw=true",
-//       SOCIETY:
-//         "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_society.png?raw=true",
-//     };
-
 //     // 3단계: 이미지 URL 설정
 //     console.log("🔧 이미지 URL 설정 중...");
 

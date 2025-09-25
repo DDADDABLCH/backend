@@ -68,12 +68,12 @@ contract DonationPlatform is ERC721, ERC721URIStorage {
     mapping(DonationCategory => uint256[]) public categoryNFTs; 
     mapping(DonationCategory => string) public categoryImageUrls;   
     function _initializeImageUrls() internal{
-        categoryImageUrls[DonationCategory.CHILDREN] = "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_children.png?raw=true";
-            categoryImageUrls[DonationCategory.ELDERLY] = "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_elderly.png?raw=true";
-            categoryImageUrls[DonationCategory.ENVIRONMENT] = "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_environment.png?raw=true";
-            categoryImageUrls[DonationCategory.ANIMAL] = "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_animal.png?raw=true";
-            categoryImageUrls[DonationCategory.MEDICAL] = "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_medical.png?raw=true";
-            categoryImageUrls[DonationCategory.SOCIETY] = "https://github.com/2213607/donation-nft-images/blob/main/donation_nft_society.png?raw=true";
+        categoryImageUrls[DonationCategory.CHILDREN] = "https://gateway.pinata.cloud/ipfs/bafybeidrb6cxfmuy36yfnzopofp5hrhywjxzglp5dygzylbw4v7wa2f33q";
+            categoryImageUrls[DonationCategory.ELDERLY] = "https://gateway.pinata.cloud/ipfs/bafybeigeltmwkhn2bnrnpdfq6yrqvheoluzpiyrffipkbzhnocl64io3ua";
+            categoryImageUrls[DonationCategory.ENVIRONMENT] = "https://gateway.pinata.cloud/ipfs/bafybeib4wpb2btxofjsqtpsr64whlsjoydy6jtrhaphuec25sq4mby2ynm";
+            categoryImageUrls[DonationCategory.ANIMAL] = "https://gateway.pinata.cloud/ipfs/bafybeiaugwz3j7h5q6kovdhoiq3owa7pr6sojj7p6nyscmkpnxqpybfxg4";
+            categoryImageUrls[DonationCategory.MEDICAL] = "https://gateway.pinata.cloud/ipfs/bafybeiafcl52bj6xavkfzrsjkxll3mzabduysalrk6lohetf6csdunu3ni";
+            categoryImageUrls[DonationCategory.SOCIETY] = "https://gateway.pinata.cloud/ipfs/bafybeiagd5xsyda5cwkjsl3s7fb7bdgs4vcnjl6xyboxukeybool5rnhry";
     }
 
     event DonationReceived(address indexed donor, address indexed beneficiary,
@@ -153,7 +153,11 @@ contract DonationPlatform is ERC721, ERC721URIStorage {
             donationCount: 0
         });
 
+
     }
+function getPlatformFee() public view returns (uint256) {
+    return platformFee;
+}
     function setCategoryImageUrl(
         DonationCategory _category, 
         string memory _imageUrl
