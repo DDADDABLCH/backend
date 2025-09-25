@@ -11,6 +11,7 @@ import com.donation.ddb.apiPayload.code.status.ErrorStatus;
 import com.donation.ddb.apiPayload.exception.handler.PostHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class PostLikeCommandService {
     private final PostRepository postRepository;
     private final StudentUserRepository studentUserRepository;
 
+    @Transactional
     public PostLike joinPostLike(Long pId, String sEmail) {
         Post post = postRepository.findPostBypId(pId);
         StudentUser studentUser = studentUserRepository.findBysEmail(sEmail)

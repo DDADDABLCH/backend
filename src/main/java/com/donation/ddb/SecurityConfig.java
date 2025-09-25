@@ -87,12 +87,12 @@ public class SecurityConfig {
 
                 //JWT 인증 필터 등록
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-                      UsernamePasswordAuthenticationFilter.class);
+                        UsernamePasswordAuthenticationFilter.class);
 
 
-                //JWT 인증 필터를 Spring Security의 기본 인증 필터 이전에 추가함.
-                //요청 헤더에서 JWT 토큰 추출하고 검증한 후, 인증 정보를 SecurityContext에 설정
-                //다른 Spring Security 필터들이 JWT 토큰으로 인증된 사용자 정보 사용할 수 있음.
+        //JWT 인증 필터를 Spring Security의 기본 인증 필터 이전에 추가함.
+        //요청 헤더에서 JWT 토큰 추출하고 검증한 후, 인증 정보를 SecurityContext에 설정
+        //다른 Spring Security 필터들이 JWT 토큰으로 인증된 사용자 정보 사용할 수 있음.
         return http.build();
     }
 
@@ -148,7 +148,7 @@ public class SecurityConfig {
                 "http://10.101.32.88:5173",
                 "http://192.168.1.100:80",
                 "http://192.168.1.100:80",
-                 "http://192.168.41.159:3000",
+                "http://192.168.41.159:3000",
                 "http://192.168.41.159:5173",
                 "http://192.168.41.159:5500",
                 "http://192.168.41.159:8080",
@@ -166,16 +166,35 @@ public class SecurityConfig {
                 "http://10.115.8.173:5173",
                 "http://10.115.8.173:8080",
                 "http://10.115.8.173:5174",
+                "http://172.20.62.228:3000",
+                "http://172.20.62.228:5500",
+                "http://172.20.62.228:5173",
+                "http://172.20.62.228:8080",
+                "http://172.20.62.228:5174",
+                "http://172.20.92.164:3000",
+                "http://172.20.92.164:5500",
+                "http://172.20.92.164:5173",
+                "http://172.20.92.164:8080",
+                "http://172.20.92.164:5174",
                 "http://localhost:5173",
                 "http://localhost:5174",
-                "https://sookchain.vercel.app"
+                "https://sookchain.vercel.app",
+                "https://unreproductive-marty-unremorsefully.ngrok-free.dev"
         ));
 
         // 허용할 HTTP 메서드 설정
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 
-        // 허용할 헤더 설정
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        // 허용할 헤더 설정 - 여기가 문제였음! ngrok-skip-browser-warning 추가
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Cache-Control",
+                "Content-Type",
+                "ngrok-skip-browser-warning",  // 이게 빠져있어서 CORS 에러 발생
+                "X-Requested-With",
+                "Accept",
+                "Origin"
+        ));
 
         // 자격 증명(쿠키 등) 허용 설정
         configuration.setAllowCredentials(true);
